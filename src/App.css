@@ -1,0 +1,398 @@
+:root {
+  --bg-color: #323232;
+  --panel-bg: #2b2b2b;
+  --text-primary: #e0e0e0;
+  --text-secondary: #9aa0a6;
+  --accent-color: #fca311;
+  /* Or a soft grey as per image? Image has grey controls.. wait. Image progress bar handle is grey. Row highlight is dark grey. */
+  --highlight-bg: #404040;
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  user-select: none;
+  cursor: default;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background-color: #262626;
+  border-radius: 8px;
+  /* Mac window roundness */
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.app-container {
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-color);
+  /* Solid dark grey */
+  display: flex;
+  flex-direction: column;
+  color: var(--text-primary);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+  /* Border-like definition */
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+/* Title Bar - simulates the native one but simpler text */
+.titlebar {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: linear-gradient(to bottom, #3a3a3a, #323232);
+  box-shadow: 0 1px 0 #202020;
+  flex-shrink: 0;
+}
+
+/* Error Message */
+.error-message {
+  background-color: #d32f2f;
+  color: #fff;
+  padding: 8px 12px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Player Section (Top) */
+.player-section {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--bg-color);
+  flex-shrink: 0;
+  max-height: 400px;
+}
+
+.album-art {
+  width: 140px;
+  height: 140px;
+  background-color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.album-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.album-art svg {
+  opacity: 0.2;
+  color: #fff;
+}
+
+.track-display {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+  color: #fff;
+}
+
+.artist {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 400;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 16px;
+  color: #d1d1d1;
+}
+
+button {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+  opacity: 0.9;
+  transition: opacity 0.2s;
+}
+
+button:hover {
+  opacity: 1;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+.control-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: #d1d1d1;
+}
+
+.play-message-btn svg {
+  width: 36px;
+  height: 36px;
+  fill: #d1d1d1;
+}
+
+.progress-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.time-curr,
+.time-rem {
+  width: 35px;
+  /* Fixed width for alignment */
+  text-align: center;
+}
+
+.time-rem {
+  text-align: right;
+}
+
+.time-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background: #4a4a4a;
+  border-radius: 2px;
+  outline: none;
+}
+
+.time-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #8e8e8e;
+  /* Grey thumb */
+  cursor: pointer;
+  margin-top: -4px;
+  /* Center thumb on track (4px height track, 12px thumb -> -4px margin? No, wait. 12-4 = 8/2 = 4. yeah) */
+}
+
+
+/* Playlist Section (Bottom) */
+.playlist-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #262626;
+  border-top: 1px solid #202020;
+  font-size: 12px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.playlist-header {
+  display: flex;
+  padding: 4px 8px;
+  background-color: #2b2b2b;
+  color: var(--text-secondary);
+  border-bottom: 1px solid #202020;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.playlist-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+  background-color: #262626;
+}
+
+.playlist-row {
+  display: flex;
+  padding: 8px;
+  color: var(--text-primary);
+  cursor: pointer;
+  background-color: transparent;
+  min-height: 32px;
+  height: auto;
+  align-items: center;
+  width: 100%;
+}
+
+.playlist-row:nth-child(even) {
+  background-color: #292929;
+}
+
+.playlist-row:hover {
+  background-color: #333;
+}
+
+.playlist-row.active {
+  background-color: #404040;
+  color: #fff;
+  font-weight: 600;
+}
+
+.playlist-row.selected {
+  background-color: #3a5a7a !important;
+}
+
+.playlist-row.selected.active {
+  background-color: #4a6a8a !important;
+}
+
+.col-idx {
+  width: 40px;
+  flex-shrink: 0;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.col-title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.col-dur {
+  width: 60px;
+  flex-shrink: 0;
+  text-align: right;
+  color: var(--text-secondary);
+}
+
+/* Bottom Bar - separate from playlist */
+.bottom-bar {
+  height: 36px;
+  min-height: 36px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #888;
+  background-color: #262626;
+  border-top: 1px solid #202020;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.volume-icon {
+  color: #888;
+  flex-shrink: 0;
+}
+
+.volume-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(to right, #fca311 0%, #fca311 100%, #444 100%, #444 100%);
+  border-radius: 2px;
+  outline: none;
+}
+
+.volume-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  background: transparent;
+  border-radius: 2px;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #8e8e8e;
+  cursor: pointer;
+  margin-top: -4px;
+}
+
+.volume-slider::-moz-range-track {
+  height: 4px;
+  background: #444;
+  border-radius: 2px;
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #8e8e8e;
+  border: none;
+  cursor: pointer;
+}
+
+
+.footer-right {
+  font-variant-numeric: tabular-nums;
+}
+
+.empty-state {
+  padding: 40px;
+  text-align: center;
+  color: var(--text-secondary);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #262626;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 4px;
+}
